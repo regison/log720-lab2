@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN"
+  "http://jetty.mortbay.org/configure.dtd">
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+  <New id="TestJeeDB" class="org.eclipse.jetty.plus.jndi.Resource">
+    <Arg></Arg>
+    <Arg>jdbc/TestJeeDB</Arg>
+    <Arg>
+      <New class="org.postgresql.ds.PGSimpleDataSource">
+        <Set name="User">aj98150</Set>
+        <Set name="Password">password</Set>
+        <Set name="DatabaseName">log720_20163_14</Set>
+        <Set name="ServerName">log720.logti.etsmtl.ca</Set>
+        <Set name="PortNumber">5432</Set>
+      </New>
+    </Arg>
+  </New>
+</Configure>

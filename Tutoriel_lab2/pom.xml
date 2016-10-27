@@ -1,0 +1,43 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+	http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<repositories>
+		<repository>
+			<id>log720</id>
+			<url>https://cours.etsmtl.ca/log720/m2</url>
+		</repository>
+	</repositories>
+
+	<parent>
+		<groupId>ca.etsmtl.log720.exemples</groupId>
+		<artifactId>servlets_jsp</artifactId>
+		<version>1.0</version>
+	</parent>
+	
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ca.etsmtl.log720.exemples.servlets_jsp</groupId>
+	<artifactId>Tutoriel_lab2</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0</version>
+
+  <!-- These dependencies are for the expression language (EL) in JSP -->	
+	<dependencies>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+			<scope>runtime</scope>
+		</dependency>
+	
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.1.2</version>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+	
+</project>
