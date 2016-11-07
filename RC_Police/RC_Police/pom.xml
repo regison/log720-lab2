@@ -74,6 +74,13 @@
 	    <artifactId>jsp-api</artifactId>
 	    <version>2.2</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-api -->
+	<dependency>
+	    <groupId>com.sun.faces</groupId>
+	    <artifactId>jsf-api</artifactId>
+	    <version>2.2.10</version>
+	</dependency>
+	
 	
   </dependencies>
 </project>

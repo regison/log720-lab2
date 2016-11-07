@@ -42,7 +42,7 @@ implements javax.servlet.Servlet  {
 			
 			BaseBean base = (BaseBean)request.getSession(true).getAttribute("BaseBean");
 			if(base == null){
-				base = BaseBean.init();
+				base = new BaseBean();
 				request.getSession().setAttribute("BaseBean", base);
 			}
 			
@@ -53,9 +53,10 @@ implements javax.servlet.Servlet  {
 					&& !path.equals("/"))
 			{
 				System.out.println("navigateTo - > " + path.replace(request.getContextPath(), ""));
-				base.navigateTo(path.replace(request.getContextPath(), ""));	
-				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/index.jsp"));
-			
+				base.navigateTo(path.replace(request.getContextPath()+"/", ""));	
+				//response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/index.jsp"));
+				/* Transmission de la paire d'objets request/response à notre JSP */
+				this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response );
 			}
 			
 		}catch(Exception e){
@@ -70,8 +71,7 @@ implements javax.servlet.Servlet  {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
 	}
 
 }

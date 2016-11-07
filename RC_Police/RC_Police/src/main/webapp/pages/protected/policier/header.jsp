@@ -13,13 +13,7 @@
         <div id="navbar" class="navbar-collapse collapse in" aria-expanded="true">
           <ul class="nav navbar-nav"  style="float:none">
             <li class="active"><a href="#">Home</a></li>
-            <li class="active"><a href="#">Banque de Dossier</a>
-            	<ul>
-            		<li class="active"> <a href="#">Ajouter un dossier</a></li>
-            		<li class="active"> <a href="#">Visualiser un dossier</a></li>
-            	</ul>
-            
-            </li>
+            <li class="active"><a href="#">Banque de Dossier</a></li>
             <li class="active"><a href="#">Banque d'infraction</a></li>
             <li class="pull-right"><a href='#' > Sign-out</a></li>
           </ul>

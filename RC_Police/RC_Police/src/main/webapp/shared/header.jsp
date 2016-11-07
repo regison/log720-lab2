@@ -10,10 +10,50 @@
           </button>
           <a class="navbar-brand" href="#">RC_Police</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse in" aria-expanded="true">
-          <ul class="nav navbar-nav"  style="float:none">
-            <li class="active"><a href="#">Home</a></li>
-            <li class=""><a href='<c:url value="/pages/protected/bureau/home.jsp" />'>Bureau</a></li>
-            <li class=""><a href='<c:url value="/pages/protected/policier/home.jsp" />'>Policier</a></li>
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false">
+          <ul class="nav navbar-nav">
+          
+           	
+       		<%
+            String loginUser = request.getRemoteUser();
+            if(loginUser == null) {
+            %>
+            
+            	<li class="active"><a href='<c:url value="/index.jsp"/>'>Home</a></li>
+            
+          	<% } else { %>
+          		 <li class="active"><a href='<c:url value="/pages/protected/home.jsp"/>'>Home</a></li>
+          		
+          		<%if(request.isUserInRole("administrateur")){%>
+          			 <li class=""><a href='<c:url value="/pages/protected/home.jsp" />'>Bureau</a></li>
+          			 
+          			 
+          		<% } 
+          		if(request.isUserInRole("policier")){
+          		%>
+          			<li class=""><a href='<c:url value="/pages/protected/home.jsp" />'>Policier</a></li>
+          			
+          		<% } %>
+	        	
+	        <% } %>
           </ul>
+          
+          <ul class="nav navbar-nav navbar-right">
+          <%if(loginUser == null) {%>
+			<li>
+				<a href='<c:url value="/pages/protected/home.jsp" />'><span class="glyphicon glyphicon-log-in"></span> Sign-in</a>
+			</li>
+		  <%}else{%>
+		  	<li class="dropdown">
+		        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		        	<span class="glyphicon glyphicon-user"></span><%= loginUser %><span class="caret"></span>
+		        </a>
+		        <ul class="dropdown-menu">
+		          <li><a href="#">Profile</a></li>
+		          <li><a href='<c:url value="/pages/login/logout.jsp"/>'>Sign-out</a></li> 
+		        </ul>
+	        </li>
+		  <%}%>
+	      </ul>
+          
         </div><!--/.nav-collapse -->

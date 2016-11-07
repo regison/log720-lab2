@@ -37,5 +37,8 @@
 	        		<template:get name='footer'/>
 	         	</div>
 	        </footer>
+	        
+	        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	        <script src='<c:url value="/resources/bootstrap/js/bootstrap.min.js" />'></script>
     </body>
 </html>

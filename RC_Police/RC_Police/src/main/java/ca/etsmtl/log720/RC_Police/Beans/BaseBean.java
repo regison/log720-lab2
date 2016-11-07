@@ -29,7 +29,7 @@ public class BaseBean {
      * Default constructor. 
      */
     public BaseBean() {
-    	currentPage = "/pages/welcome.jsp";
+    	currentPage = "pages/welcome.jsp";
     }
     
     public String getCurrentPage(){
