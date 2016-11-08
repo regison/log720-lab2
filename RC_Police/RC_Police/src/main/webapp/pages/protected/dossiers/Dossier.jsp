@@ -19,10 +19,17 @@
 		<div class="col-xs-12">
 		
 			<%if(request.isUserInRole("policier") || request.isUserInRole("administration") ){
-				
 				String record_id = request.getParameter("id"); 
-				
+				if(record_id != "ggdfgb gsdfhb"){
 				%>
+				
+					<sql:query var="dossier" dataSource="jdbc/TestJeeDB">
+				    	select id, nom, prenom, nopermis, noplaque 
+						from dossier
+						where id = ${param.id}
+					</sql:query>
+				
+				<%} %>
 				
 		        <form method="post" action="dossier" class="form">
 		         	<div class="panel panel-primary">
@@ -37,7 +44,7 @@
 								            <div class="form-group">
 								               		
 								                <label for="idDossier">Identifiant: <span class="requis">*</span></label>
-								                <input readonly class="form-control" type="text" id="idDossier" name="idDossier" value="${(record_id != null) ? record_id : 'gdfgdfg' }"/>
+								                <input readonly class="form-control" type="text" id="idDossier" name="idDossier" value="${param.id}" />
 								                <span class="erreur">${erreurs['email']}</span>
 											</div>
 										</div>
@@ -47,7 +54,7 @@
 											<div class="form-group">
 											
 								                <label for="Name">Nom: <span class="requis">*</span></label>
-								                <input class="form-control" type="text" id="Name" name="Name" value="" <% if(record_id != null){ %> readonly <%} %> />
+								                <input class="form-control" type="text" id="Name" name="Name" value="${param.nom}" <% if(record_id != null){ %> readonly <%} %> />
 								                <span class="erreur">${erreurs['motdepasse']}</span>
 						
 							                </div>
@@ -96,9 +103,9 @@
 								 	<div class="table-responsive">
 										<table class="table-striped table-bordered col-xs-12" id="dataGrid-dossiers">
 											<colgroup>
-											     <col class="col-xs-1" style="align:center"/>
-										      	<col class="col-xs-9" style="align:center"/>
-										        <col class="col-xs-2" style="align:center"/>
+											     <col class="col-xs-1" style="width:2%"/>
+										      	<col class="col-xs-9"/>
+										        <col class="col-xs-2"/>
 											</colgroup>
 											<thead>
 												<tr>
@@ -118,7 +125,7 @@
 													<%rowNumber++; %>
 													<tr id="${row.id}" height="30px">
 														<td>
-															<a type="button" class="btn btn-default btn-xs" href=''>
+															<a type="button" class="btn btn-default btn-xs " href=''>
 												   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
 															</a> 
 															

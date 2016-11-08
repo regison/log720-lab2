@@ -40,11 +40,11 @@
 							 <div class="table-responsive">
 								<table class="table-striped table-bordered col-xs-12" id="dataGrid-dossiers">
 									<colgroup>
-									    <col style="align:center"/>
-								      	<col style="align:center"/>
-								        <col style="align:center"/>
-							          	<col style="align:center"/>
-							          	<col style="align:center"/>
+									    <col style="width:2%"/>
+								      	<col />
+								        <col />
+							          	<col />
+							          	<col />
 									</colgroup>
 									<thead>
 										<tr>
@@ -110,9 +110,9 @@
 							 <div class="table-responsive">
 								<table class="table-striped table-bordered col-xs-12" id="dataGrid-infractions">
 									<colgroup>
-									    <col class="col-xs-1" style="align:center"/>
-								      	<col class="col-xs-9" style="align:center"/>
-								        <col class="col-xs-2" style="align:center"/>
+									    <col class="col-xs-1" style="width:2%"/>
+								      	<col class="col-xs-9"/>
+								        <col class="col-xs-2"/>
 									</colgroup>
 									<thead>
 										<tr>
@@ -138,14 +138,12 @@
 													
 												</td>
 										    	<td>${row.description}</td>
+										    	<td></td>
 											</tr>
 										</c:forEach>
 										
 										<c:forEach begin="<%=rowNumber%>" end="10" varStatus="loop">
 											<tr >
-												<td>&nbsp; </td>
-												<td>&nbsp; </td>
-												<td>&nbsp; </td>
 												<td>&nbsp; </td>
 												<td>&nbsp; </td>
 											</tr>
@@ -177,11 +175,11 @@
 							 <div class="table-responsive">
 								<table class="table-striped table-bordered col-xs-12" id="dataGrid-dossiers">
 									<colgroup>
-									    <col style="align:center"/>
-								      	<col style="align:center"/>
-								        <col style="align:center"/>
-							          	<col style="align:center"/>
-							          	<col style="align:center"/>
+									    <col class="col-xs-1" style="width:2%"/>
+								      	<col />
+								        <col />
+							          	<col />
+							          	<col />
 									</colgroup>
 									<thead>
 										<tr>
