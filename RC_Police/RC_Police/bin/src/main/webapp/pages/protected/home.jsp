@@ -26,7 +26,7 @@
 				 	<div class="panel panel-primary">
 						<div class="panel-heading">
 							 Dossiers
-						 	<a type="button" class="btn btn-default btn-sm pull-right" href='dossiers/Dossier.jsp'>
+						 	<a type="button" class="btn btn-default btn-sm pull-right">
 							   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 							</a>
 						</div>
@@ -49,7 +49,7 @@
 									<thead>
 										<tr>
 											<th> 
-												<a type="button" class="btn btn-default btn-xs" href='dossiers/Dossier.jsp'>
+												<a type="button" class="btn btn-default btn-xs">
 									   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 												</a> 
 											</th>
@@ -66,7 +66,7 @@
 											<%rowNumber++; %>
 											<tr id="${row.id}" height="30px">
 												<td>
-													<a type="button" class="btn btn-default btn-xs" href='dossiers/Dossier.jsp?id=${row.id}'>
+													<a type="button" class="btn btn-default btn-xs">
 										   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
 													</a> 
 													
@@ -80,11 +80,11 @@
 										
 										<c:forEach begin="<%=rowNumber%>" end="10" varStatus="loop">
 											<tr >
-												<td>&nbsp; </td>
-												<td>&nbsp; </td>
-												<td>&nbsp; </td>
-												<td>&nbsp; </td>
-												<td>&nbsp; </td>
+												<td>&nbsp;; </td>
+												<td>&nbsp;; </td>
+												<td>&nbsp;; </td>
+												<td>&nbsp;; </td>
+												<td>&nbsp;; </td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -104,15 +104,18 @@
 						</div>
 			      		<div class="panel-body">
 							<sql:query var="listeDossier" dataSource="jdbc/TestJeeDB">
-					    	select id, description 
-							from infraction
+					    	select id, nom, prenom, nopermis, noplaque 
+							from dossier
+							order by noplaque
 						</sql:query>
 							 <div class="table-responsive">
-								<table class="table-striped table-bordered col-xs-12" id="dataGrid-infractions">
+								<table class="table-striped table-bordered col-xs-12" id="dataGrid-dossiers">
 									<colgroup>
-									    <col class="col-xs-1" style="align:center"/>
-								      	<col class="col-xs-9" style="align:center"/>
-								        <col class="col-xs-2" style="align:center"/>
+									    <col style="align:center"/>
+								      	<col style="align:center"/>
+								        <col style="align:center"/>
+							          	<col style="align:center"/>
+							          	<col style="align:center"/>
 									</colgroup>
 									<thead>
 										<tr>
@@ -121,12 +124,14 @@
 									   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 												</a> 
 											</th>
-									    	<th>Description</th>
-									    	<th>Severite</th>
+									    	<th>Nom</th>
+									    	<th>Prenom</th>
+									    	<th>No Permis</th>
+									    	<th>No Plaque</th>
 										</tr>
 									</thead>
 									<tbody>
-										<% rowNumber=0;%>
+										<%rowNumber=0;%>
 										
 										<c:forEach var="row" items="${listeDossier.rows}" >
 											<%rowNumber++; %>
@@ -137,7 +142,10 @@
 													</a> 
 													
 												</td>
-										    	<td>${row.description}</td>
+										    	<td>${row.nom}</td>
+										    	<td>${row.prenom}</td>
+										    	<td>${row.nopermis}</td>
+										    	<td>${row.noplaque} </td>
 											</tr>
 										</c:forEach>
 										

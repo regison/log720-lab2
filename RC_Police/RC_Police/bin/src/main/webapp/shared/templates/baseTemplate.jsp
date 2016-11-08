@@ -14,8 +14,6 @@
         
        <link rel="stylesheet" href='<c:url value="/resources/bootstrap/css/bootstrap.min.css" />' />
        <link rel="stylesheet" href='<c:url value="/resources/css/sticky-footer.css" />' />
-         <link rel="stylesheet" href='<c:url value="/resources/css/dashboard.css" />' />
-       
        
         <title><template:get name='title'/></title>
         
@@ -36,7 +34,7 @@
 	       
 	        <footer class="footer">
       			<div class="container">
-	      			<template:get name='footer'/>
+	        		<template:get name='footer'/>
 	         	</div>
 	        </footer>
 	        

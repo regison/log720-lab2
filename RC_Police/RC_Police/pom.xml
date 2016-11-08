@@ -32,7 +32,7 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>3.0.0</version>
         <configuration>
-          <webappDirectory>C:\apache\apache-tomcat-7.0.72\webapps\rcpolice</webappDirectory>
+          <webappDirectory>C:\apache\apache-tomcat-7.0.72\webapps\rc_police</webappDirectory>
         </configuration>
       </plugin>
     </plugins>
