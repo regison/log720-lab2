@@ -46,7 +46,7 @@
 		  <%}else{%>
 		  	<li class="dropdown">
 		        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		        	<span class="glyphicon glyphicon-user"></span><%= loginUser %><span class="caret"></span>
+		        	<span class="glyphicon glyphicon-user"></span> <%= loginUser %><span class="caret"></span>
 		        </a>
 		        <ul class="dropdown-menu">
 		          <li><a href="#">Profile</a></li>

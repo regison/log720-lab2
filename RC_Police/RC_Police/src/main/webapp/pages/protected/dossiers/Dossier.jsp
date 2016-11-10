@@ -12,25 +12,18 @@
 	
 	<template:put name='header' content='/shared/header.jsp' />
 	 
+	 
 	<template:put name='content' >
+	
+		<%if(request.isUserInRole("policier") || request.isUserInRole("administration") ){%>
+		
+		<jsp:useBean id="dossier" class="ca.etsmtl.log720.RC_Police.Beans.DossierBean" scope="request" />
+	
 		<div class="page-header" >
-		  <h1>Hello World ! from home.jsp</h1>
+		  <h1><%= dossier.getRn_Descriptor() %></h1>
 		</div>
 		<div class="col-xs-12">
-		
-			<%if(request.isUserInRole("policier") || request.isUserInRole("administration") ){
-				String record_id = request.getParameter("id"); 
-				if(record_id != "ggdfgb gsdfhb"){
-				%>
-				
-					<sql:query var="dossier" dataSource="jdbc/TestJeeDB">
-				    	select id, nom, prenom, nopermis, noplaque 
-						from dossier
-						where id = ${param.id}
-					</sql:query>
-				
-				<%} %>
-				
+						
 		        <form method="post" action="dossier" class="form">
 		         	<div class="panel panel-primary">
 			         	<div class="panel-body">
@@ -44,7 +37,7 @@
 								            <div class="form-group">
 								               		
 								                <label for="idDossier">Identifiant: <span class="requis">*</span></label>
-								                <input readonly class="form-control" type="text" id="idDossier" name="idDossier" value="${param.id}" />
+								                <input readonly class="form-control" type="text" id="idDossier" name="idDossier" value="<%=dossier.getId() %>" />
 								                <span class="erreur">${erreurs['email']}</span>
 											</div>
 										</div>
@@ -54,7 +47,7 @@
 											<div class="form-group">
 											
 								                <label for="Name">Nom: <span class="requis">*</span></label>
-								                <input class="form-control" type="text" id="Name" name="Name" value="${param.nom}" <% if(record_id != null){ %> readonly <%} %> />
+								                <input class="form-control" type="text" id="Name" name="Name" value="<%= dossier.getNom() %>" <% if(dossier.getId() != null){ %> readonly <%} %> />
 								                <span class="erreur">${erreurs['motdepasse']}</span>
 						
 							                </div>
@@ -63,7 +56,7 @@
 											<div class="form-group">
 						
 								                <label for="NoPermis">No. Permis </label>
-								                <input class="form-control" type="text" id="NoPermis" name="NoPermis" value=""  <% if(record_id != null){ %> readonly <%} %>  />
+								                <input class="form-control" type="text" id="NoPermis" name="NoPermis" value="<%=dossier.getNoPermis() %>"  <% if(dossier.getId() != null){ %> readonly <%} %>  />
 								                <span class="erreur">${erreurs['nom']}</span>
 						
 							                </div>
@@ -74,7 +67,7 @@
 					                		<div class="form-group">
 				
 								                <label for="Prenom">Prenom: <span class="requis">*</span></label>
-								                <input class="form-control" type="text" id="Prenom" name="Prenom" value="" <% if(record_id != null){ %> readonly <%} %> />
+								                <input class="form-control" type="text" id="Prenom" name="Prenom" value="<%=dossier.getPrenom() %>" <% if(dossier.getId() != null){ %> readonly <%} %> />
 								                <span class="erreur">${erreurs['confirmation']}</span>
 						
 							                </div>
@@ -82,7 +75,7 @@
 										<div class="col-xs-6">
 											<div class="form-group">
 									                <label for="NoPlaques">No. Plaque </label>
-									                <input class="form-control" type="text" id="NoPlaques" name="NoPlaques" value=""  <% if(record_id != null){ %> readonly <%} %>  />
+									                <input class="form-control" type="text" id="NoPlaques" name="NoPlaques" value="<%=dossier.getNoPlaque() %>"  <% if(dossier.getId() != null){ %> readonly <%} %>  />
 									                <span class="erreur">${erreurs['nom']}</span>
 							                </div>
 										
@@ -96,10 +89,6 @@
 									Infractions
 								</div>
 								<div class="panel-body">
-									<sql:query var="listeDossier" dataSource="jdbc/TestJeeDB">
-								    	select id, description 
-										from infraction
-									</sql:query>
 								 	<div class="table-responsive">
 										<table class="table-striped table-bordered col-xs-12" id="dataGrid-dossiers">
 											<colgroup>
@@ -110,9 +99,11 @@
 											<thead>
 												<tr>
 													<th> 
-														<a type="button" class="btn btn-default btn-xs" href='dossiers/Dossier.jsp'>
-											   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-														</a> 
+														<% if(dossier.getId() != null && request.isUserInRole("policier")){ %>
+															<a type="button" class="btn btn-default btn-xs" href='<c:url value="/pages/protected/infractions/infraction" />?dossierid=<%=dossier.getId()%>' >
+												   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+															</a> 
+														<%} %>
 													</th>
 											    	<th>Description</th>
 											    	<th>Severite</th>
@@ -121,17 +112,17 @@
 											<tbody>
 												<%int rowNumber=0;%>
 												
-												<c:forEach var="row" items="${listeDossier.rows}" >
+												<c:forEach var="row" items="${dossier.getInfractions()}" >
 													<%rowNumber++; %>
-													<tr id="${row.id}" height="30px">
+													<tr id="${row.id}">
 														<td>
-															<a type="button" class="btn btn-default btn-xs " href=''>
+															<a type="button" class="btn btn-default btn-xs " href='<c:url value="/pages/protected/infractions/infraction" />?id=${row.id}' >
 												   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
 															</a> 
 															
 														</td>
 												    	<td>${row.description}</td>
-												    	<td>$severite</td>
+												    	<td>severite</td>
 													</tr>
 												</c:forEach>
 												
@@ -149,14 +140,16 @@
 							</div>
 						</div>
 					 	<div class="panel-footer">
-	               	 		<button type="submit" class="btn btn-primary">Sauvegarder</button>
+					 		<% if(dossier.getId() == null){ %>
+	               	 			<button type="submit" class="btn btn-primary">Sauvegarder</button>
+	               	 		 <%} %>
 						</div>
 		        	</div>
 		        </form>
 			
-         	<%}%>
+         	
 		</div>
-		
+		<%}%>
 	</template:put>
 	
 	<template:put name='footer' content='/shared/footer.jsp' />

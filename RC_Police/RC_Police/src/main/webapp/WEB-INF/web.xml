@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-			xmlns="http://java.sun.com/xml/ns/javaee" 
-			xmlns:web="http://java.sun.com/xml/ns/javaee" 
-			xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
-			id="rcpolice" version="3.0">
-			
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="rcpolice" version="3.0">
   <display-name>RC_Police</display-name>
   <error-page>
     <error-code>404</error-code>
@@ -14,16 +9,30 @@
     <error-code>503</error-code>
     <location>/errors/500.jsp</location>
   </error-page>
+  
+  
+  
+  
   <servlet>
     <servlet-name>Default</servlet-name>
     <servlet-class>ca.etsmtl.log720.RC_Police.servlets.Default</servlet-class>
-
   </servlet>
   
-<!--   <servlet-mapping> -->
-<!--   	<servlet-name>Default</servlet-name> -->
-<!--   	<url-pattern>/pages/*</url-pattern> -->
-<!--   </servlet-mapping> -->
+   <servlet>
+    <servlet-name>dossier</servlet-name>
+    <servlet-class>ca.etsmtl.log720.RC_Police.servlets.dossiers.Dossier</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>infraction</servlet-name>
+    <servlet-class>ca.etsmtl.log720.RC_Police.servlets.infraction.Infraction</servlet-class>
+  </servlet>
+  
+  
+  
+
+  
+  
   
   
   <welcome-file-list>
@@ -54,7 +63,6 @@
       <transport-guarantee>NONE</transport-guarantee>
     </user-data-constraint>
   </security-constraint>
-  
   <login-config>
     <auth-method>FORM</auth-method>
     <realm-name>Example Form-Based Authentication Area</realm-name>
@@ -63,5 +71,4 @@
       <form-error-page>/pages/login/error.jsp</form-error-page>
     </form-login-config>
   </login-config>
- 
 </web-app>

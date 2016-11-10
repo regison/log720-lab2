@@ -26,9 +26,6 @@
 				 	<div class="panel panel-primary">
 						<div class="panel-heading">
 							 Dossiers
-						 	<a type="button" class="btn btn-default btn-sm pull-right" href='dossiers/Dossier.jsp'>
-							   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							</a>
 						</div>
 			      		<div class="panel-body">
 			      		
@@ -49,9 +46,11 @@
 									<thead>
 										<tr>
 											<th> 
-												<a type="button" class="btn btn-default btn-xs" href='dossiers/Dossier.jsp'>
-									   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-												</a> 
+												<%if(request.isUserInRole("administration")) {%>
+													<a type="button" class="btn btn-default btn-xs" href='dossiers/dossier'>
+										   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+													</a> 
+												<%} %>
 											</th>
 									    	<th>Nom</th>
 									    	<th>Prenom</th>
@@ -66,9 +65,10 @@
 											<%rowNumber++; %>
 											<tr id="${row.id}" height="30px">
 												<td>
-													<a type="button" class="btn btn-default btn-xs" href='dossiers/Dossier.jsp?id=${row.id}'>
-										   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
-													</a> 
+													
+														<a type="button" class="btn btn-default btn-xs" href='dossiers/dossier?id=${row.id}'>
+											   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+														</a> 
 													
 												</td>
 										    	<td>${row.nom}</td>
@@ -98,9 +98,6 @@
 		      		<div class="panel panel-primary">
 						<div class="panel-heading">
 							Infractions
-							 <a type="button" class="btn btn-default btn-sm pull-right">
-							   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							 </a>
 						</div>
 			      		<div class="panel-body">
 							<sql:query var="listeDossier" dataSource="jdbc/TestJeeDB">
@@ -117,9 +114,11 @@
 									<thead>
 										<tr>
 											<th> 
-												<a type="button" class="btn btn-default btn-xs">
+											<%if(request.isUserInRole("administration")) {%>
+												<a type="button" class="btn btn-default btn-xs" href='infractions/infraction'>
 									   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 												</a> 
+												<%} %>
 											</th>
 									    	<th>Description</th>
 									    	<th>Severite</th>
@@ -132,7 +131,7 @@
 											<%rowNumber++; %>
 											<tr id="${row.id}" height="30px">
 												<td>
-													<a type="button" class="btn btn-default btn-xs">
+													<a type="button" class="btn btn-default btn-xs" href='infractions/infraction?id=${row.id}'>
 										   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
 													</a> 
 													
@@ -144,6 +143,7 @@
 										
 										<c:forEach begin="<%=rowNumber%>" end="10" varStatus="loop">
 											<tr >
+												<td>&nbsp; </td>
 												<td>&nbsp; </td>
 												<td>&nbsp; </td>
 											</tr>
@@ -162,9 +162,7 @@
 		          	<div class="panel panel-primary ">
 						<div class="panel-heading">
 							Reactions
-							 <a type="button" class="btn btn-default btn-sm pull-right">
-							   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							 </a>
+							 
 						</div>
 			      		<div class="panel-body">
 			      			<sql:query var="listeDossier" dataSource="jdbc/TestJeeDB">
