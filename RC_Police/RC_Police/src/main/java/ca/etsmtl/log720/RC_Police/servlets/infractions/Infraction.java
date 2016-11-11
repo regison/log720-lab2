@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import ca.etsmtl.log720.RC_Police.Beans.DossierBean;
 import ca.etsmtl.log720.RC_Police.Beans.InfractionBean;
+import ca.etsmtl.log720.RC_Police.servlets.dossiers.DossierFormValidation;
+import ca.etsmtl.log720.RC_Police.utils.helpers.DossierHelper;
+import ca.etsmtl.log720.RC_Police.utils.helpers.InfractionHelper;
 
 /**
  * Servlet implementation class Dossier
@@ -26,10 +29,10 @@ public class Infraction extends HttpServlet {
 	
 	private javax.sql.DataSource myDB;
 
-	    @Resource(name="jdbc/TestJeeDB")
-	    private void setMyDB(javax.sql.DataSource ds) {
-	        myDB = ds;
-	    }
+    @Resource(name="jdbc/TestJeeDB")
+    private void setMyDB(javax.sql.DataSource ds) {
+        myDB = ds;
+    }
 	
 	
     /**
@@ -50,76 +53,24 @@ public class Infraction extends HttpServlet {
 		
 		InfractionBean infraction = new InfractionBean();
 		
-		ResultSet results;
-		
 		if(record_id != null && !record_id.equals(""))
 		{
-			Connection con = null;
-	        PreparedStatement pstmt;
 	        try {
-		        try {
-		            con = myDB.getConnection();
-		            
-					con.setAutoCommit(false);
-					
-		            pstmt = con.prepareStatement(
-		            		"select id, description "+
-							"from infraction " +
-							"where id = ?");
-		            pstmt.setInt(1, Integer.parseInt(record_id));
-		            results = pstmt.executeQuery();
-		
+		          InfractionHelper iHelper = new InfractionHelper(myDB);
 		          
-		            while (results.next()) {
-		            	infraction.setId(results.getInt(InfractionBean.INFRACTION_COL_ID));
-		            	infraction.setDescription(results.getString(InfractionBean.INFRACTION_COL_DESCRIPTION));
-						break;
-					}
+		          infraction = iHelper.getInfractionBy(Integer.parseInt(record_id));
 		            
-		            
-		            /* fetch associated Dossiers*/
-		            
-		            pstmt = con.prepareStatement(
-		            		"select d.id, d.nom, d.prenom, d.nopermis, d.noplaque  "+
-							"from dossier d " +
-		            		"inner join dossier__infraction di " +
-		            		"on d.id = di.iddossier " +
-							"where di.idinfraction = ?");
-		            
-		            pstmt.setInt(1, infraction.getId());
-		            results = pstmt.executeQuery();
+		          if(infraction.getId() != null){
+		        	  iHelper.populateDossierFor(infraction);
+		          }
 		
-		            DossierBean dossier;
-		            while (results.next()) {
-		            	dossier = new DossierBean();
-		            	dossier.setId(results.getInt(DossierBean.DOSSIER_COL_ID));
-						dossier.setNom(results.getString(DossierBean.DOSSIER_COL_NOM));
-						dossier.setPrenom(results.getString(DossierBean.DOSSIER_COL_PRENOM));
-						dossier.setNoPlaque(results.getString(DossierBean.DOSSIER_COL_NUMPLAQUE));
-						dossier.setNoPermis(results.getString(DossierBean.DOSSIER_COL_NUMPERMIS));
-						
-						infraction.getDossiers().add(dossier);
-						
-					}
-		            
-		            pstmt.close();
-		
-		            
-		        } finally {
-		            if (con != null) con.close();
-		        }
-	        
 	        } catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	        
-	        
 		}
-		
-			
+
 		request.setAttribute("infraction", infraction);
-		
 		
 		this.getServletContext().getRequestDispatcher( "/pages/protected/infractions/Infraction.jsp" ).forward( request, response );
 	}
@@ -129,7 +80,27 @@ public class Infraction extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		InfractionFormValidation validation = new InfractionFormValidation(myDB);
+		
+		
+		
+		InfractionBean infraction = validation.ValidateInfraction(request);
+		
+		InfractionHelper iHelper = new InfractionHelper(myDB);
+		try {
+			int new_id = iHelper.saveNewInfration(infraction);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("form", validation);
+		request.setAttribute("infraction", infraction);
+		
+		this.getServletContext().getRequestDispatcher( "/pages/protected/infractions/Infraction.jsp" ).forward( request, response );
+		
 		
 
 	}

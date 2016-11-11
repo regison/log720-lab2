@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -12,16 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import ca.etsmtl.log720.RC_Police.Beans.DossierBean;
 import ca.etsmtl.log720.RC_Police.Beans.InfractionBean;
+import ca.etsmtl.log720.RC_Police.utils.helpers.DossierHelper;
 
 public class DossierFormValidation {
 	
 	private javax.sql.DataSource myDB;
-
-    @Resource(name="jdbc/TestJeeDB")
-    private void setMyDB(javax.sql.DataSource ds) {
-        myDB = ds;
-    }
 		
+	public DossierFormValidation(javax.sql.DataSource ds) {
+		 myDB = ds;
+
+	}
 
 	private String resultat;
 	private Map<String, String> erreurs = new HashMap<String, String>();
@@ -36,39 +37,45 @@ public class DossierFormValidation {
 
 	
 
-	public DossierBean ValidateDossier ( HttpServletRequest request ) {
+	public DossierBean ValidateDossier ( HttpServletRequest request)  {
 		
-	    String id = getValeurChamp( request, DossierBean.DOSSIER_COL_ID );
-	    String nom = getValeurChamp( request, DossierBean.DOSSIER_COL_NOM );
-	    String prenom = getValeurChamp( request, DossierBean.DOSSIER_COL_PRENOM );
-	    String numPlaque = getValeurChamp( request, DossierBean.DOSSIER_COL_NUMPLAQUE );
-	    String numPermis = getValeurChamp( request, DossierBean.DOSSIER_COL_NUMPERMIS );
+		
+	    String nom = getValeurChamp( request, "Nom");
+	    String prenom = getValeurChamp( request, "Prenom");
+	    String numPlaque = getValeurChamp( request, "NoPlaque" );
+	    String numPermis = getValeurChamp( request, "NoPermis" );
 
+	    System.out.println(nom);
+	    
 	    DossierBean dossier = new DossierBean();
 
 	    try {
 	        validationNom( nom );
+	        dossier.setNom( nom );
 	    } catch ( Exception e ) {
-	        setErreur( DossierBean.DOSSIER_COL_NOM, e.getMessage() );
+	        setErreur( "Nom", e.getMessage() );
 	    }
-	    dossier.setNom( nom );
+	   
 	    
 	    try {
 	        validationPrenom( prenom );
+	        dossier.setPrenom(prenom);
 	    } catch ( Exception e ) {
-	        setErreur( DossierBean.DOSSIER_COL_PRENOM, e.getMessage() );
+	        setErreur( "Prenom", e.getMessage() );
 	    }
 	    
 	    try {
 	        validationNumPlaque( numPlaque );
+	        dossier.setNoPlaque(numPlaque);
 	    } catch ( Exception e ) {
-	        setErreur( DossierBean.DOSSIER_COL_NUMPLAQUE, e.getMessage() );
+	        setErreur( "NoPlaque", e.getMessage() );
 	    }
 	    
 	    try {
 	        validationNumPermis( numPermis );
+	        dossier.setNoPermis(numPermis);
 	    } catch ( Exception e ) {
-	        setErreur( DossierBean.DOSSIER_COL_NUMPERMIS, e.getMessage() );
+	        setErreur( "NoPermis" , e.getMessage() );
 	    }
 
 	    if ( erreurs.isEmpty() ) {
@@ -101,38 +108,17 @@ public class DossierFormValidation {
 	private void validationNumPlaque( String numPlaque ) throws Exception {
 		if(numPlaque != null){
 			
-			ResultSet results;
-			Connection con = null;
-	        PreparedStatement pstmt, pstmt_linkedDossier;
 	        try {
-		        try {
-		            con = myDB.getConnection();
-		            
-						con.setAutoCommit(false);
-					
-		            pstmt = con.prepareStatement(
-		            		"select id, nom, prenom, nopermis, noplaque "+
-							"from dossier " +
-							"where id = ?");
-		            pstmt.setInt(1, Integer.parseInt(record_id));
-		            results = pstmt.();
-		
-		            
-		            while (results.next()) {
-						
-					}
-		            
-	
-		            pstmt.close();
-		            
-		            
-		        } finally {
-		            if (con != null) con.close();
-		        }
+	           DossierHelper dHelper = new DossierHelper(myDB);
+	           
+	           List<DossierBean> dossiers = dHelper.getDosssiersBy(DossierHelper.Fields.NOPLAQUE, numPlaque);
+		           
+	           if(dossiers.size() > 0){
+	        	   throw new Exception( "Le numero de permis existe deja" );
+	           }
 	        
 	        } catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	        	throw new Exception( "Erruer interne lors de la validation" );
 			}
 		}
 		else

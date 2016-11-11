@@ -11,13 +11,6 @@ import java.util.List;
  *
  */
 public class DossierBean extends EntityBean{
-	
-	
-	public final static String DOSSIER_COL_ID = "id";
-	public final static String DOSSIER_COL_NOM = "nom";
-	public final static String DOSSIER_COL_PRENOM = "prenom";
-	public final static String DOSSIER_COL_NUMPLAQUE = "noplaque";
-	public final static String DOSSIER_COL_NUMPERMIS = "nopermis";
 
 	String nom, prenom, noPlaque, noPermis;
 

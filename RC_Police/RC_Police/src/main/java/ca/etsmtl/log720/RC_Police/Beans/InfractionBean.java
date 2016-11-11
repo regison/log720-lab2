@@ -19,13 +19,16 @@ public class InfractionBean extends EntityBean {
 	public final static String INFRACTION_COL_SEVERITE = "severite";
 	
 	String description;
-
+	private Integer severite;
+	
 	List<DossierBean> dossiers;
+	
 	
 	
 	public InfractionBean() {
 		super();
 		description = "";
+		severite = null;
 		
 		dossiers = new ArrayList<DossierBean>();
 	}
@@ -45,6 +48,14 @@ public class InfractionBean extends EntityBean {
 	
 	protected void updateRn_Descriptor() {
 		super.setRn_Descriptor(this.description);
+	}
+
+	public Integer getSeverite() {
+		return this.severite;
+	}
+
+	public void setSeverite(int severite) {
+		this.severite = severite;
 	}
 
 }

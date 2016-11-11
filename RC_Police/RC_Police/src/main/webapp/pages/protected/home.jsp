@@ -63,7 +63,7 @@
 										
 										<c:forEach var="row" items="${listeDossier.rows}" >
 											<%rowNumber++; %>
-											<tr id="${row.id}" height="30px">
+											<tr id="${row.id}">
 												<td>
 													
 														<a type="button" class="btn btn-default btn-xs" href='dossiers/dossier?id=${row.id}'>
@@ -101,7 +101,7 @@
 						</div>
 			      		<div class="panel-body">
 							<sql:query var="listeDossier" dataSource="jdbc/TestJeeDB">
-					    	select id, description 
+					    	select id, description , idniveau
 							from infraction
 						</sql:query>
 							 <div class="table-responsive">
@@ -129,7 +129,7 @@
 										
 										<c:forEach var="row" items="${listeDossier.rows}" >
 											<%rowNumber++; %>
-											<tr id="${row.id}" height="30px">
+											<tr id="${row.id}">
 												<td>
 													<a type="button" class="btn btn-default btn-xs" href='infractions/infraction?id=${row.id}'>
 										   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
@@ -137,7 +137,7 @@
 													
 												</td>
 										    	<td>${row.description}</td>
-										    	<td></td>
+										    	<td>${row.idniveau}</td>
 											</tr>
 										</c:forEach>
 										
@@ -197,7 +197,7 @@
 										
 										<c:forEach var="row" items="${listeDossier.rows}" >
 											<%rowNumber++; %>
-											<tr id="${row.id}" height="30px">
+											<tr id="${row.id}" >
 												<td>
 													<a type="button" class="btn btn-default btn-xs">
 										   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>

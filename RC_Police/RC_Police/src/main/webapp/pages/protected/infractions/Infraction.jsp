@@ -24,7 +24,7 @@
 		</div>
 		<div class="col-xs-12">
 						
-		        <form method="post" action="dossier" class="form">
+		        <form method="post" action="infraction" class="form">
 		         	<div class="panel panel-primary">
 			         	<div class="panel-body">
 			         		<div class="panel panel-default">
@@ -37,7 +37,7 @@
 								            <div class="form-group">
 								               		
 								                <label for="idDossier">Identifiant: <span class="requis">*</span></label>
-								                <input readonly class="form-control" type="text" id="idDossier" name="idDossier" value="<%=infraction.getId() %>" />
+								                <input readonly class="form-control" type="text" id="idDossier" name="idDossier" value="${infraction.id}" />
 								                <span class="erreur">${erreurs['email']}</span>
 											</div>
 										</div>
@@ -46,23 +46,18 @@
 										<div class="col-xs-9">
 											<div class="form-group">
 											
-								                <label for="Name">Description: <span class="requis">*</span></label>
-								                <input class="form-control" type="text" id="Name" name="Name" value="<%= infraction.getDescription() %>" <% if(infraction.getId() != null){ %> readonly <%} %> />
-								                <span class="erreur">${erreurs['motdepasse']}</span>
+								                <label for="Description">Description: <span class="requis">*</span></label>
+								                <input class="form-control" type="text" id="Description" name="Description" value="${infraction.description}" <% if(infraction.getId() != null){ %> readonly <%} %> />
+								                <span class="erreur">${erreurs['Description']}</span>
 						
 							                </div>
 							       		</div>
 						                <div class="col-xs-3">
 											<div class="form-group">
 									
-								                <label for="NoPermis">Severite </label>
-								                	<select class="form-control" id="severite"  <% if(infraction.getId() != null){ %> disabled <%} %> >
-													    <option value="id-1">Severite1.Rn_Descriptor</option>
-													    <option value="id-2">Severite2.Rn_Descriptor</option>
-													    <option value="id-3">Severite3.Rn_Descriptor</option>
-													   	<option value="id-4" selected >Severite4.Rn_Descriptor</option>
-												  	</select>
-								                	<span class="erreur">${erreurs['nom']}</span>
+								                <label for="Severite">Severite </label>
+								                  <input class="form-control" type="number" id="Severite" name="Severite" value="${infraction.severite}" <% if(infraction.getId() != null){ %> readonly <%} %> />
+								                <span class="erreur">${erreurs['Severite']}</span>
 
 							                </div>
 						                </div>

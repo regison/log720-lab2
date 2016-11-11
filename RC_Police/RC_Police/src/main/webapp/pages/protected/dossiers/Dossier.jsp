@@ -37,8 +37,8 @@
 								            <div class="form-group">
 								               		
 								                <label for="idDossier">Identifiant: <span class="requis">*</span></label>
-								                <input readonly class="form-control" type="text" id="idDossier" name="idDossier" value="<%=dossier.getId() %>" />
-								                <span class="erreur">${erreurs['email']}</span>
+								                <input readonly class="form-control" type="text" id="idDossier" name="id" value="${dossier.id }" />
+								                <span class="erreur">${form.erreurs['id']}</span>
 											</div>
 										</div>
 									</div>
@@ -47,17 +47,17 @@
 											<div class="form-group">
 											
 								                <label for="Name">Nom: <span class="requis">*</span></label>
-								                <input class="form-control" type="text" id="Name" name="Name" value="<%= dossier.getNom() %>" <% if(dossier.getId() != null){ %> readonly <%} %> />
-								                <span class="erreur">${erreurs['motdepasse']}</span>
+								                <input class="form-control" type="text" id="Nom" name="Nom" value="${dossier.nom }" <% if(dossier.getId() != null){ %> readonly <%} %> />
+								                <span class="erreur">${form.erreurs['Nom']}</span>
 						
 							                </div>
 							       		</div>
 						                <div class="col-xs-6">
-											<div class="form-group">
+											<div class="form-group ">
 						
 								                <label for="NoPermis">No. Permis </label>
-								                <input class="form-control" type="text" id="NoPermis" name="NoPermis" value="<%=dossier.getNoPermis() %>"  <% if(dossier.getId() != null){ %> readonly <%} %>  />
-								                <span class="erreur">${erreurs['nom']}</span>
+								                <input class="form-control" type="text" id="NoPermis" name="NoPermis" value="${dossier.noPermis }"  <% if(dossier.getId() != null){ %> readonly <%} %>  />
+								                <span class="erreur">${form.erreurs['NoPermis']}</span>
 						
 							                </div>
 						                </div>
@@ -67,16 +67,16 @@
 					                		<div class="form-group">
 				
 								                <label for="Prenom">Prenom: <span class="requis">*</span></label>
-								                <input class="form-control" type="text" id="Prenom" name="Prenom" value="<%=dossier.getPrenom() %>" <% if(dossier.getId() != null){ %> readonly <%} %> />
-								                <span class="erreur">${erreurs['confirmation']}</span>
+								                <input class="form-control" type="text" id="Prenom" name="Prenom" value="${dossier.prenom }" <% if(dossier.getId() != null){ %> readonly <%} %> />
+								                <span class="erreur">${form.erreurs['Prenom']}</span>
 						
 							                </div>
 							            </div>
 										<div class="col-xs-6">
 											<div class="form-group">
 									                <label for="NoPlaques">No. Plaque </label>
-									                <input class="form-control" type="text" id="NoPlaques" name="NoPlaques" value="<%=dossier.getNoPlaque() %>"  <% if(dossier.getId() != null){ %> readonly <%} %>  />
-									                <span class="erreur">${erreurs['nom']}</span>
+									                <input class="form-control" type="text" id="NoPlaques" name="NoPlaque" value="${dossier.noPlaque }"  <% if(dossier.getId() != null){ %> readonly <%} %>  />
+									                <span class="erreur">${form.erreurs['NoPlaque']}</span>
 							                </div>
 										
 						
@@ -100,7 +100,7 @@
 												<tr>
 													<th> 
 														<% if(dossier.getId() != null && request.isUserInRole("policier")){ %>
-															<a type="button" class="btn btn-default btn-xs" href='<c:url value="/pages/protected/infractions/infraction" />?dossierid=<%=dossier.getId()%>' >
+															<a type="button" class="btn btn-default btn-xs" href='<c:url value="/pages/protected/dossier__infraction" />?dossierid=${dossier.id}' >
 												   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 															</a> 
 														<%} %>

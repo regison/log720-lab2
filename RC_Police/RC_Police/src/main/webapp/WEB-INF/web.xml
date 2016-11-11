@@ -13,20 +13,7 @@
   
   
   
-  <servlet>
-    <servlet-name>Default</servlet-name>
-    <servlet-class>ca.etsmtl.log720.RC_Police.servlets.Default</servlet-class>
-  </servlet>
-  
-   <servlet>
-    <servlet-name>dossier</servlet-name>
-    <servlet-class>ca.etsmtl.log720.RC_Police.servlets.dossiers.Dossier</servlet-class>
-  </servlet>
-  
-  <servlet>
-    <servlet-name>infraction</servlet-name>
-    <servlet-class>ca.etsmtl.log720.RC_Police.servlets.infraction.Infraction</servlet-class>
-  </servlet>
+
   
   
   
