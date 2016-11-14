@@ -15,7 +15,8 @@
        <link rel="stylesheet" href='<c:url value="/resources/bootstrap/css/bootstrap.min.css" />' />
        <link rel="stylesheet" href='<c:url value="/resources/css/sticky-footer.css" />' />
          <link rel="stylesheet" href='<c:url value="/resources/css/dashboard.css" />' />
-       
+          <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-addition.css" />' />
+      
        
         <title><template:get name='title'/></title>
         

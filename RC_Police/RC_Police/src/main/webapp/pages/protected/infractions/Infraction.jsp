@@ -81,7 +81,7 @@
 											<thead>
 												<tr>
 													<th> 
-														<% if(infraction.getId() != null && request.isUserInRole("policier")){ %>
+														<% if(infraction.getId() != null && request.isUserInRole("testeur")){ %>
 															<a type="button" class="btn btn-default btn-xs" href='<c:url value="/pages/protected/dossiers/dossier" /> '>
 												   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 															</a> 

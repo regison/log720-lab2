@@ -29,6 +29,22 @@ public abstract class EntityBean {
 		this.Rn_Descriptor = Rn_Descriptor;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		
+		if(super.equals(obj))
+			return true;
+		
+		if(!(obj instanceof EntityBean))
+			return false;
+		
+		EntityBean oEntity = (EntityBean) obj;
+		
+		if(this.id == null || oEntity.id == null)
+			return false;
+		
+		return  this.id.equals(oEntity.id) ;
+	}
 	
 	
 }

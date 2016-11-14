@@ -14,10 +14,6 @@ import java.util.List;
 public class InfractionBean extends EntityBean {
 		
 	
-	public final static String INFRACTION_COL_ID = "id";
-	public final static String INFRACTION_COL_DESCRIPTION = "description";
-	public final static String INFRACTION_COL_SEVERITE = "severite";
-	
 	String description;
 	private Integer severite;
 	

@@ -15,12 +15,14 @@ public class DossierBean extends EntityBean{
 	String nom, prenom, noPlaque, noPermis;
 
 	List<InfractionBean> infractions;
+	List<ReactionBean> reactions;
 	
 	public DossierBean() {
 		id = null;
 		nom = prenom = noPlaque = noPermis = "";
 		
 		infractions = new ArrayList<InfractionBean>();
+		reactions = new ArrayList<ReactionBean>();
 	}
 
 	public String getNom() {
@@ -58,10 +60,22 @@ public class DossierBean extends EntityBean{
 		this.noPermis = noPermis;
 		this.updateRn_Descriptor();
 	}
-
+	
+	public int getSeverite(){
+		int maxSeveriteInfractions = 0;
+		for(InfractionBean infraction : this.getInfractions()){
+			maxSeveriteInfractions = Math.max(maxSeveriteInfractions, infraction.getSeverite());
+		}
+		
+		return maxSeveriteInfractions;
+	}
 
 	public List<InfractionBean> getInfractions() {
 		return infractions;
+	}
+	
+	public List<ReactionBean> getReactions() {
+		return reactions;
 	}
 	
 	protected void updateRn_Descriptor() {

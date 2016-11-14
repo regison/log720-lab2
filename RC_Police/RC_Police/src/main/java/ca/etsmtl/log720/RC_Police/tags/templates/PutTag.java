@@ -37,7 +37,7 @@ public class PutTag extends BodyTagSupport {
 
 		if(params == null) 
 			throw new JspException("PutTag: no hashtable");	
-		System.out.println(name + " -> '" +content.trim() +"'");
+		//System.out.println(name + " -> '" +content.trim() +"'");
 		if(!content.trim().equals("")){
 			params.put(name, new PageParameter(content,direct));
 			return SKIP_BODY;

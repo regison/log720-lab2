@@ -62,6 +62,7 @@ public class Dossier extends HttpServlet {
 		            dossier = dHelper.getDosssierBy(Integer.parseInt(record_id));
 		            if(dossier.getId() != null){
 		            	dHelper.populateInfractionFor(dossier);
+		            	dHelper.populateReactionsFor(dossier);
 		            }
 		            
 	        } catch (SQLException e) {

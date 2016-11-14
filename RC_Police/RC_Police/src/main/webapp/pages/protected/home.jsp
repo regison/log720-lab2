@@ -103,6 +103,7 @@
 							<sql:query var="listeDossier" dataSource="jdbc/TestJeeDB">
 					    	select id, description , idniveau
 							from infraction
+							order by idniveau
 						</sql:query>
 							 <div class="table-responsive">
 								<table class="table-striped table-bordered col-xs-12" id="dataGrid-infractions">
@@ -166,30 +167,23 @@
 						</div>
 			      		<div class="panel-body">
 			      			<sql:query var="listeDossier" dataSource="jdbc/TestJeeDB">
-					    	select id, nom, prenom, nopermis, noplaque 
-							from dossier
-							order by noplaque
+					    	select id, description 
+							from reaction
 						</sql:query>
 							 <div class="table-responsive">
-								<table class="table-striped table-bordered col-xs-12" id="dataGrid-dossiers">
+								<table class="table-striped table-bordered col-xs-12" id="dataGrid-reactions">
 									<colgroup>
 									    <col class="col-xs-1" style="width:2%"/>
 								      	<col />
-								        <col />
-							          	<col />
-							          	<col />
 									</colgroup>
 									<thead>
 										<tr>
 											<th> 
-												<a type="button" class="btn btn-default btn-xs">
+												<a type="button" class="btn btn-default btn-xs" href='reactions/reaction'>
 									   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 												</a> 
 											</th>
-									    	<th>Nom</th>
-									    	<th>Prenom</th>
-									    	<th>No Permis</th>
-									    	<th>No Plaque</th>
+									    	<th>Description</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -199,23 +193,17 @@
 											<%rowNumber++; %>
 											<tr id="${row.id}" >
 												<td>
-													<a type="button" class="btn btn-default btn-xs">
+													<a type="button" class="btn btn-default btn-xs" href='reactions/reaction?id=${row.id}'>
 										   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
 													</a> 
 													
 												</td>
-										    	<td>${row.nom}</td>
-										    	<td>${row.prenom}</td>
-										    	<td>${row.nopermis}</td>
-										    	<td>${row.noplaque} </td>
+										    	<td>${row.description}</td>
 											</tr>
 										</c:forEach>
 										
 										<c:forEach begin="<%=rowNumber%>" end="10" varStatus="loop">
 											<tr >
-												<td>&nbsp; </td>
-												<td>&nbsp; </td>
-												<td>&nbsp; </td>
 												<td>&nbsp; </td>
 												<td>&nbsp; </td>
 											</tr>

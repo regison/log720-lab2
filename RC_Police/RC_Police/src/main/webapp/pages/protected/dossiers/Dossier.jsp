@@ -83,60 +83,141 @@
 										</div>	
 									</div>
 								</div>
-							</div>	
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									Infractions
-								</div>
-								<div class="panel-body">
-								 	<div class="table-responsive">
-										<table class="table-striped table-bordered col-xs-12" id="dataGrid-dossiers">
-											<colgroup>
-											     <col class="col-xs-1" style="width:2%"/>
-										      	<col class="col-xs-9"/>
-										        <col class="col-xs-2"/>
-											</colgroup>
-											<thead>
-												<tr>
-													<th> 
-														<% if(dossier.getId() != null && request.isUserInRole("policier")){ %>
-															<a type="button" class="btn btn-default btn-xs" href='<c:url value="/pages/protected/dossier__infraction" />?dossierid=${dossier.id}' >
-												   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-															</a> 
-														<%} %>
-													</th>
-											    	<th>Description</th>
-											    	<th>Severite</th>
-												</tr>
-											</thead>
-											<tbody>
-												<%int rowNumber=0;%>
-												
-												<c:forEach var="row" items="${dossier.getInfractions()}" >
-													<%rowNumber++; %>
-													<tr id="${row.id}">
-														<td>
-															<a type="button" class="btn btn-default btn-xs " href='<c:url value="/pages/protected/infractions/infraction" />?id=${row.id}' >
-												   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
-															</a> 
-															
-														</td>
-												    	<td>${row.description}</td>
-												    	<td>severite</td>
-													</tr>
-												</c:forEach>
-												
-												<c:forEach begin="<%=rowNumber%>" end="10" varStatus="loop">
-													<tr >
-														<td>&nbsp; </td>
-														<td>&nbsp; </td>
-														<td>&nbsp; </td>
-													</tr>
-												</c:forEach>
-											</tbody>
-										</table>
+							</div>
+							
+							<div class="col-xs-12 alert <% 
+										if(dossier.getInfractions().isEmpty()){
+											%>alert-info<%
+										}else{
+											%>alert-warning<%
+										}
+										%>">
+								<%if(dossier.getInfractions().isEmpty()){
+									%>Ce dossier n'a pas d'infraction a son actif<%
+								}else{
+									%>Severite du dossier:<%= dossier.getSeverite() %><%
+								}
+								%>
+							</div>
+							<div class="col-xs-12 no-sidepadding">
+								<div class="<% 
+											if(dossier.getId() != null && request.isUserInRole("policier")){ 
+												%> col-xs-6 no-leftpadding<%
+											}else{ 
+												%> col-xs-12 no-sidepadding<%
+											} 
+											%>">	
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											Infractions
+										</div>
+										<div class="panel-body">
+										 	<div class="table-responsive">
+												<table class="table-striped table-bordered col-xs-12 " 
+													id="dataGrid-dossiers">
+													
+													<colgroup>
+													     <col class="col-xs-1" style="width:2%"/>
+												      	<col class="col-xs-9"/>
+												        <col class="col-xs-2"/>
+													</colgroup>
+													<thead>
+														<tr>
+															<th> 
+																<% if(dossier.getId() != null && request.isUserInRole("policier")){ %>
+																	<a type="button" class="btn btn-default btn-xs" href='<c:url value="/pages/protected/dossier__infraction" />?dossierid=${dossier.id}' >
+														   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+																	</a> 
+																<%} %>
+															</th>
+													    	<th>Description</th>
+													    	<th>Severite</th>
+														</tr>
+													</thead>
+													<tbody>
+														<%int rowNumber=0;%>
+														
+														<c:forEach var="row" items="${dossier.getInfractions()}" >
+															<%rowNumber++; %>
+															<tr id="${row.id}">
+																<td>
+																	<a type="button" class="btn btn-default btn-xs " href='<c:url value="/pages/protected/infractions/infraction" />?id=${row.id}' >
+														   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+																	</a> 
+																	
+																</td>
+														    	<td>${row.description}</td>
+														    	<td>${row.severite}</td>
+															</tr>
+														</c:forEach>
+														
+														<c:forEach begin="<%=rowNumber%>" end="10" varStatus="loop">
+															<tr >
+																<td>&nbsp; </td>
+																<td>&nbsp; </td>
+																<td>&nbsp; </td>
+															</tr>
+														</c:forEach>
+													</tbody>
+												</table>
+											</div>
+										</div>
 									</div>
 								</div>
+								<% if(request.isUserInRole("policier")){ %>
+								<div class="col-xs-6 no-rightpadding">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											Reactions
+										</div>
+										<div class="panel-body">
+										 	<div class="table-responsive">
+												<table class="table-striped table-bordered col-xs-12" id="dataGrid-reactions">
+													<colgroup>
+													     <col class="col-xs-1" style="width:2%"/>
+												      	<col class="col-xs-11"/>
+													</colgroup>
+													<thead>
+														<tr>
+															<th> 
+																<% if(dossier.getId() != null && request.isUserInRole("policier")){ %>
+																	<a type="button" class="btn btn-default btn-xs" href='<c:url value="/pages/protected/dossier__reaction" />?dossierid=${dossier.id}' >
+														   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+																	</a> 
+																<%} %>
+															</th>
+													    	<th>Description</th>
+														</tr>
+													</thead>
+													<tbody>
+														<%rowNumber=0;%>
+														
+														<c:forEach var="row" items="${dossier.getReactions()}" >
+															<%rowNumber++; %>
+															<tr id="${row.id}">
+																<td>
+																	<a type="button" class="btn btn-default btn-xs " href='<c:url value="/pages/protected/reactions/reaction" />?id=${row.id}' >
+														   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+																	</a> 
+																	
+																</td>
+														    	<td>${row.description}</td>
+															</tr>
+														</c:forEach>
+														
+														<c:forEach begin="<%=rowNumber%>" end="10" varStatus="loop">
+															<tr >
+																<td>&nbsp; </td>
+																<td>&nbsp; </td>
+															</tr>
+														</c:forEach>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<%} %>
 							</div>
 						</div>
 					 	<div class="panel-footer">

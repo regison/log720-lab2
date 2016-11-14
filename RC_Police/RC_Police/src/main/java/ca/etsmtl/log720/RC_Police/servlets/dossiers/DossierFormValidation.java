@@ -1,18 +1,13 @@
 package ca.etsmtl.log720.RC_Police.servlets.dossiers;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import ca.etsmtl.log720.RC_Police.Beans.DossierBean;
-import ca.etsmtl.log720.RC_Police.Beans.InfractionBean;
 import ca.etsmtl.log720.RC_Police.utils.helpers.DossierHelper;
 
 public class DossierFormValidation {
