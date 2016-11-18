@@ -24,7 +24,7 @@
           	<% } else { %>
           		 <li class="active"><a href='<c:url value="/pages/protected/home.jsp"/>'>Home</a></li>
           		
-          		<%if(request.isUserInRole("administrateur")){%>
+          		<%-- <%if(request.isUserInRole("administrateur")){%>
           			 <li class=""><a href='<c:url value="/pages/protected/home.jsp" />'>Bureau</a></li>
           			 
           			 
@@ -33,7 +33,7 @@
           		%>
           			<li class=""><a href='<c:url value="/pages/protected/home.jsp" />'>Policier</a></li>
           			
-          		<% } %>
+          		<% } %> --%>
 	        	
 	        <% } %>
           </ul>

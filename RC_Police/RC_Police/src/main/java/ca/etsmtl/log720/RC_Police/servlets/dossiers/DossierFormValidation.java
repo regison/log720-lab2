@@ -14,13 +14,20 @@ public class DossierFormValidation {
 	
 	private javax.sql.DataSource myDB;
 		
+	/**
+	 * Use for render in JSP
+	 */
+	public DossierFormValidation() {
+		
+	}
+	
 	public DossierFormValidation(javax.sql.DataSource ds) {
 		 myDB = ds;
-
+		 erreurs = new HashMap<String, String>();
 	}
 
 	private String resultat;
-	private Map<String, String> erreurs = new HashMap<String, String>();
+	private Map<String, String> erreurs;
 
 	public String getResultat() {
 	    return resultat;
@@ -96,27 +103,28 @@ public class DossierFormValidation {
 	}
 	
 	private void validationNumPermis( String numPermis ) throws Exception {
-		if(numPermis == null)
-			throw new Exception( "Merci de saisir le numero de permis" );
-	}
-	
-	private void validationNumPlaque( String numPlaque ) throws Exception {
-		if(numPlaque != null){
-			
+		if(numPermis != null){
+					
 	        try {
 	           DossierHelper dHelper = new DossierHelper(myDB);
 	           
-	           List<DossierBean> dossiers = dHelper.getDosssiersBy(DossierHelper.Fields.NOPLAQUE, numPlaque);
-		           
+	           List<DossierBean> dossiers = dHelper.getDosssiersBy(DossierHelper.Fields.NOPERMIS, numPermis);
+		       
 	           if(dossiers.size() > 0){
 	        	   throw new Exception( "Le numero de permis existe deja" );
 	           }
+	           System.out.println(dossiers.size());
 	        
 	        } catch (SQLException e) {
 	        	throw new Exception( "Erruer interne lors de la validation" );
 			}
 		}
 		else
+			throw new Exception( "Merci de saisir le numero de permis" );
+	}
+	
+	private void validationNumPlaque( String numPlaque ) throws Exception {
+		if(numPlaque == null)
 			throw new Exception( "Merci de saisir le numero de plaque" );
 	}
 

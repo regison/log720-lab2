@@ -19,10 +19,32 @@
     <!-- driverClassName: Class name for the JDBC driver   -->
     
     <!-- url: The JDBC connection url for connecting to your dB.  -->
-
-    <Resource name="jdbc/TestJeeDB" auth="Container" type="javax.sql.DataSource"
-        maxActive="100" maxIdle="30" maxWait="10000" username="aj98150"
-	password="password" driverClassName="org.postgresql.Driver"
-	url="jdbc:postgresql://log720.logti.etsmtl.ca:5432/log720_20163_14"/>
+	
+  	<Resource name="jdbc/TestJeeDB" 
+  			auth="Container" 
+  			type="javax.sql.DataSource" 
+  			maxActive="100" maxIdle="30" maxWait="10000" 
+  			username="aj98150"
+			password="password" 
+			driverClassName="org.postgresql.Driver"
+			url="jdbc:postgresql://log720.logti.etsmtl.ca:5432/log720_20163_14"/>
+	
+	 <Realm className="org.apache.catalina.realm.LockOutRealm">
+				   
+		<Realm className="org.apache.catalina.realm.JDBCRealm" 
+			debug="99"
+			digest="sha-256"
+			driverName="org.postgresql.Driver"
+			connectionURL="jdbc:postgresql://log720.logti.etsmtl.ca:5432/log720_20163_14"
+		 	connectionName="aj98150"
+		 	connectionPassword="password"
+		 	userTable="users" 
+			userNameCol="username" 
+			userCredCol="password"
+			userRoleTable="users__roles" 
+			roleNameCol="rolename" 
+		/>
+		
+      </Realm>
 	
 </Context>

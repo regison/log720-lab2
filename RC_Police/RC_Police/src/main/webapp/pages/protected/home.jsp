@@ -13,8 +13,28 @@
 	<template:put name='header' content='/shared/header.jsp' />
 	 
 	<template:put name='content' >
+	
 		<div class="page-header" >
-		  <h1>Hello World ! from home.jsp</h1>
+		  <h1>
+		  		<%
+		  		if(request.isUserInRole("policier")){
+		  		%>Bienvenue sur le site du commissariat de police<%
+		  		} 
+		  		else if(request.isUserInRole("administration")) {
+		  		%>Bienvenue sur le site du commissariat de police<%
+		  		}
+		  		%>
+		  </h1>
+		  
+		  <h2>
+		  		<%
+		  		if(request.isUserInRole("policier")){
+		  			%>"Site externe"<%
+		  		} 
+		  		else if(request.isUserInRole("administration")) {
+		  			%>"Site interne"<%
+		  		}
+		  		%></h2>
 		</div>
 		<div class="col-xs-12">
 		
@@ -22,10 +42,13 @@
 			
 				
 			
-				<div class="col-xs-12 col-md-6">
+				<div class="col-xs-12">
 				 	<div class="panel panel-primary">
 						<div class="panel-heading">
 							 Dossiers
+							 <%if(request.isUserInRole("administration")) {%>
+							 	<a href="dossiers/dossier" class="btn btn-success btn-xs pull-right"> Nouveau </a>
+						 	<%} %>
 						</div>
 			      		<div class="panel-body">
 			      		
@@ -35,7 +58,7 @@
 							order by noplaque
 						</sql:query>
 							 <div class="table-responsive">
-								<table class="table-striped table-bordered col-xs-12" id="dataGrid-dossiers">
+								<table class="table-striped table-bordered sortable col-xs-12" id="dataGrid-dossiers">
 									<colgroup>
 									    <col style="width:2%"/>
 								      	<col />
@@ -45,14 +68,14 @@
 									</colgroup>
 									<thead>
 										<tr>
-											<th> 
-												<%if(request.isUserInRole("administration")) {%>
+											<th data-defaultsort='disabled'> 
+												<%-- <%if(request.isUserInRole("administration")) {%>
 													<a type="button" class="btn btn-default btn-xs" href='dossiers/dossier'>
 										   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 													</a> 
-												<%} %>
+												<%} %> --%>
 											</th>
-									    	<th>Nom</th>
+									    	<th data-defaultsort="asc" >Nom</th>
 									    	<th>Prenom</th>
 									    	<th>No Permis</th>
 									    	<th>No Plaque</th>
@@ -66,9 +89,9 @@
 											<tr id="${row.id}">
 												<td>
 													
-														<a type="button" class="btn btn-default btn-xs" href='dossiers/dossier?id=${row.id}'>
-											   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
-														</a> 
+													<a type="button" class="btn btn-default btn-xs" href='dossiers/dossier?id=${row.id}'>
+										   				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+													</a> 
 													
 												</td>
 										    	<td>${row.nom}</td>
@@ -79,7 +102,7 @@
 										</c:forEach>
 										
 										<c:forEach begin="<%=rowNumber%>" end="10" varStatus="loop">
-											<tr >
+											<tr data-disablesort="true">
 												<td>&nbsp; </td>
 												<td>&nbsp; </td>
 												<td>&nbsp; </td>
@@ -94,10 +117,19 @@
 		      		</div>
 	      		</div>
 	      		
-	      		<div class="col-xs-12 col-md-6">
+	      		<div class="<% 
+							if(request.isUserInRole("policier")){ 
+								%> col-xs-6 no-rightpadding<%
+							}else{ 
+								%> col-xs-12<%
+							} 
+							%>">
 		      		<div class="panel panel-primary">
 						<div class="panel-heading">
 							Infractions
+							<%if(request.isUserInRole("administration")) {%>
+								<a href="infractions/infraction" class="btn btn-success btn-xs pull-right"> Nouveau </a>
+							<%} %>
 						</div>
 			      		<div class="panel-body">
 							<sql:query var="listeDossier" dataSource="jdbc/TestJeeDB">
@@ -106,23 +138,23 @@
 							order by idniveau
 						</sql:query>
 							 <div class="table-responsive">
-								<table class="table-striped table-bordered col-xs-12" id="dataGrid-infractions">
+								<table class="table-striped table-bordered sortable col-xs-12" id="dataGrid-infractions">
 									<colgroup>
-									    <col class="col-xs-1" style="width:2%"/>
+									    <col class="col-xs-1" style="width:5%"/>
 								      	<col class="col-xs-9"/>
 								        <col class="col-xs-2"/>
 									</colgroup>
 									<thead>
 										<tr>
-											<th> 
-											<%if(request.isUserInRole("administration")) {%>
+											<th data-defaultsort='disabled'> 
+											<%-- <%if(request.isUserInRole("administration")) {%>
 												<a type="button" class="btn btn-default btn-xs" href='infractions/infraction'>
 									   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 												</a> 
-												<%} %>
+												<%} %> --%>
 											</th>
 									    	<th>Description</th>
-									    	<th>Severite</th>
+									    	<th data-defaultsort="desc" >Severite</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -143,7 +175,7 @@
 										</c:forEach>
 										
 										<c:forEach begin="<%=rowNumber%>" end="10" varStatus="loop">
-											<tr >
+											<tr data-disablesort="true" >
 												<td>&nbsp; </td>
 												<td>&nbsp; </td>
 												<td>&nbsp; </td>
@@ -163,7 +195,7 @@
 		          	<div class="panel panel-primary ">
 						<div class="panel-heading">
 							Reactions
-							 
+							 <a href="reactions/reaction" class="btn btn-success btn-xs pull-right"> Nouveau </a>
 						</div>
 			      		<div class="panel-body">
 			      			<sql:query var="listeDossier" dataSource="jdbc/TestJeeDB">
@@ -171,19 +203,19 @@
 							from reaction
 						</sql:query>
 							 <div class="table-responsive">
-								<table class="table-striped table-bordered col-xs-12" id="dataGrid-reactions">
+								<table class="table-striped table-bordered sortable col-xs-12" id="dataGrid-reactions">
 									<colgroup>
-									    <col class="col-xs-1" style="width:2%"/>
+									    <col class="col-xs-1" style="width:5%"/>
 								      	<col />
 									</colgroup>
 									<thead>
 										<tr>
-											<th> 
-												<a type="button" class="btn btn-default btn-xs" href='reactions/reaction'>
-									   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-												</a> 
+											<th data-defaultsort='disabled'> 
+<!-- 												<a type="button" class="btn btn-default btn-xs" href='reactions/reaction'> -->
+<!-- 									   				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> -->
+<!-- 												</a>  -->
 											</th>
-									    	<th>Description</th>
+									    	<th data-defaultsort="asc" >Description</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -203,7 +235,7 @@
 										</c:forEach>
 										
 										<c:forEach begin="<%=rowNumber%>" end="10" varStatus="loop">
-											<tr >
+											<tr data-disablesort="true" >
 												<td>&nbsp; </td>
 												<td>&nbsp; </td>
 											</tr>
